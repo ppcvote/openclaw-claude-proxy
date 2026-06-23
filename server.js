@@ -17,6 +17,7 @@
 // Enhanced: github.com/ppcvote/openclaw-claude-proxy
 // ═══════════════════════════════════════════════════════════════════════════
 
+require('dotenv').config();
 const express = require('express');
 const { spawn } = require('child_process');
 const { randomUUID } = require('crypto');
@@ -31,7 +32,7 @@ const API_KEY = process.env.API_KEY || '';
 const CLAUDE_CLI = process.env.CLAUDE_CLI_PATH || 'claude';
 const MAX_CONCURRENT = parseInt(process.env.MAX_CONCURRENT || '3', 10);
 const REQUEST_TIMEOUT = parseInt(process.env.REQUEST_TIMEOUT || '300000', 10);
-const MAX_TOOL_TURNS = parseInt(process.env.MAX_TOOL_TURNS || '10', 10);
+const MAX_TOOL_TURNS = parseInt(process.env.MAX_TOOL_TURNS || '30', 10);
 const MAX_RETRIES = parseInt(process.env.MAX_RETRIES || '1', 10);
 const LOG_DIR = process.env.LOG_DIR || path.join(process.env.HOME || '.', '.openclaw/logs');
 const PLUGINS_DIR = process.env.PLUGINS_DIR || path.join(__dirname, 'plugins');

@@ -7,7 +7,15 @@
     "start": "node server.js",
     "dev": "node server.js"
   },
-  "keywords": ["claude", "proxy", "openai", "openclaw", "ai-agent", "llm", "claude-max"],
+  "keywords": [
+    "claude",
+    "proxy",
+    "openai",
+    "openclaw",
+    "ai-agent",
+    "llm",
+    "claude-max"
+  ],
   "author": "Ultra Lab (ultralab.tw)",
   "license": "MIT",
   "repository": {
@@ -15,6 +23,7 @@
     "url": "https://github.com/ppcvote/openclaw-claude-proxy"
   },
   "dependencies": {
+    "dotenv": "^17.3.1",
     "express": "^4.21.0",
     "uuid": "^11.0.0"
   }
