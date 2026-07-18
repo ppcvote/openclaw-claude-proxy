@@ -318,11 +318,11 @@ app.post('/v1/chat/completions', auth, async (req, res) => {
 
       const chunk = {
         id: requestId, object: 'chat.completion.chunk', created,
-        model: model || 'claude-opus-4-6',
+        model: model || 'claude-opus-4-8',
         choices: [{ index: 0, delta: { role: 'assistant', content: result }, finish_reason: null }],
       };
       res.write(`data: ${JSON.stringify(chunk)}\n\n`);
-      res.write(`data: ${JSON.stringify({ id: requestId, object: 'chat.completion.chunk', created, model: model || 'claude-opus-4-6', choices: [{ index: 0, delta: {}, finish_reason: 'stop' }] })}\n\n`);
+      res.write(`data: ${JSON.stringify({ id: requestId, object: 'chat.completion.chunk', created, model: model || 'claude-opus-4-8', choices: [{ index: 0, delta: {}, finish_reason: 'stop' }] })}\n\n`);
       res.write('data: [DONE]\n\n');
       res.end();
       activeRequests--;
@@ -333,7 +333,7 @@ app.post('/v1/chat/completions', auth, async (req, res) => {
     activeRequests--;
     const response = {
       id: requestId, object: 'chat.completion', created,
-      model: model || 'claude-opus-4-6',
+      model: model || 'claude-opus-4-8',
       choices: [{ index: 0, message: { role: 'assistant', content: result }, finish_reason: 'stop' }],
       usage: {
         prompt_tokens: Math.ceil(prompt.length / 4),
@@ -360,7 +360,7 @@ app.get('/v1/models', auth, (req, res) => {
   res.json({
     object: 'list',
     data: [
-      { id: 'claude-opus-4-6', object: 'model', created: 1700000000, owned_by: 'anthropic' },
+      { id: 'claude-opus-4-8', object: 'model', created: 1700000000, owned_by: 'anthropic' },
       { id: 'claude-sonnet-4-6', object: 'model', created: 1700000000, owned_by: 'anthropic' },
       { id: 'claude-haiku-4-5', object: 'model', created: 1700000000, owned_by: 'anthropic' },
     ],
