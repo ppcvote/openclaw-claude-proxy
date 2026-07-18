@@ -17,6 +17,7 @@
 // Enhanced: github.com/ppcvote/openclaw-claude-proxy
 // ═══════════════════════════════════════════════════════════════════════════
 
+require('dotenv').config();
 const express = require('express');
 const { spawn } = require('child_process');
 const { randomUUID } = require('crypto');
@@ -31,7 +32,7 @@ const API_KEY = process.env.API_KEY || '';
 const CLAUDE_CLI = process.env.CLAUDE_CLI_PATH || 'claude';
 const MAX_CONCURRENT = parseInt(process.env.MAX_CONCURRENT || '3', 10);
 const REQUEST_TIMEOUT = parseInt(process.env.REQUEST_TIMEOUT || '300000', 10);
-const MAX_TOOL_TURNS = parseInt(process.env.MAX_TOOL_TURNS || '10', 10);
+const MAX_TOOL_TURNS = parseInt(process.env.MAX_TOOL_TURNS || '30', 10);
 const MAX_RETRIES = parseInt(process.env.MAX_RETRIES || '1', 10);
 const LOG_DIR = process.env.LOG_DIR || path.join(process.env.HOME || '.', '.openclaw/logs');
 const PLUGINS_DIR = process.env.PLUGINS_DIR || path.join(__dirname, 'plugins');
@@ -317,11 +318,11 @@ app.post('/v1/chat/completions', auth, async (req, res) => {
 
       const chunk = {
         id: requestId, object: 'chat.completion.chunk', created,
-        model: model || 'claude-opus-4-6',
+        model: model || 'claude-opus-4-8',
         choices: [{ index: 0, delta: { role: 'assistant', content: result }, finish_reason: null }],
       };
       res.write(`data: ${JSON.stringify(chunk)}\n\n`);
-      res.write(`data: ${JSON.stringify({ id: requestId, object: 'chat.completion.chunk', created, model: model || 'claude-opus-4-6', choices: [{ index: 0, delta: {}, finish_reason: 'stop' }] })}\n\n`);
+      res.write(`data: ${JSON.stringify({ id: requestId, object: 'chat.completion.chunk', created, model: model || 'claude-opus-4-8', choices: [{ index: 0, delta: {}, finish_reason: 'stop' }] })}\n\n`);
       res.write('data: [DONE]\n\n');
       res.end();
       activeRequests--;
@@ -332,7 +333,7 @@ app.post('/v1/chat/completions', auth, async (req, res) => {
     activeRequests--;
     const response = {
       id: requestId, object: 'chat.completion', created,
-      model: model || 'claude-opus-4-6',
+      model: model || 'claude-opus-4-8',
       choices: [{ index: 0, message: { role: 'assistant', content: result }, finish_reason: 'stop' }],
       usage: {
         prompt_tokens: Math.ceil(prompt.length / 4),
@@ -359,7 +360,7 @@ app.get('/v1/models', auth, (req, res) => {
   res.json({
     object: 'list',
     data: [
-      { id: 'claude-opus-4-6', object: 'model', created: 1700000000, owned_by: 'anthropic' },
+      { id: 'claude-opus-4-8', object: 'model', created: 1700000000, owned_by: 'anthropic' },
       { id: 'claude-sonnet-4-6', object: 'model', created: 1700000000, owned_by: 'anthropic' },
       { id: 'claude-haiku-4-5', object: 'model', created: 1700000000, owned_by: 'anthropic' },
     ],
