@@ -1,5 +1,8 @@
 # OpenClaw ↔ Claude Code Proxy (Enhanced)
 
+> [!WARNING]
+> **Note (2026-09-26):** Anthropic's [Consumer Terms](https://www.anthropic.com/legal/consumer-terms) bar automated access to the Services except through an Anthropic API key or where Anthropic explicitly permits it, and the [Claude help center](https://support.claude.com/en/articles/13189465-log-in-to-your-claude-account) says subscription usage is designed for ordinary use of Anthropic's own apps, names API key authentication as the preferred route for third-party tools, including open-source projects, and states that tools which attempt to route third-party traffic against subscription limits are prohibited. Routing an agent fleet through a Claude subscription, as this proxy does, falls in that territory. If you want agents to call Claude automatically, use an API key from the [Claude Console](https://platform.claude.com/) and pay per use. We stopped running this proxy ourselves on 2026-09-22.
+
 > Turn your $200/mo Claude Max subscription into a free AI API for your entire agent fleet.
 
 **One proxy. All models. Zero API cost.**
